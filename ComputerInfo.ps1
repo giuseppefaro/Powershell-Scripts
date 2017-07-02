@@ -96,13 +96,13 @@ function Get-Temperature {
     
 }
 
-Get-Temperature
+Get-Temperature 
 
 #
 # SMART Status for physical disks
 #
 echo ""
-echo "Hard Disk Status "
+echo "Hard Disk Status " 
 Get-PhysicalDIsk  | Select-Object FriendlyName,HealthStatus,Size
 Get-PhysicalDIsk | Get-StorageReliabilityCounter |  Select-Object DeviceID, Temperature,ReadErrorsTotal
 
