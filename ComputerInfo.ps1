@@ -78,6 +78,7 @@ Foreach ($Card in $ComputerVideoCard)
     }
 $Output
 
+
 function Get-Temperature {
     $t = @( Get-WmiObject MSAcpi_ThermalZoneTemperature -Namespace "root/wmi" )
     $returntemp = @()
@@ -96,9 +97,14 @@ function Get-Temperature {
 }
 
 Get-Temperature
-echo "Hard Disk Status "
-Get-PhysicalDIsk | Get-StorageReliabilityCounter |  Select-Object DeviceID, Temperature,ReadErrorsTotal
 
+#
+# SMART Status for physical disks
+#
+echo ""
+echo "Hard Disk Status "
+Get-PhysicalDIsk  | Select-Object FriendlyName,HealthStatus,Size
+Get-PhysicalDIsk | Get-StorageReliabilityCounter |  Select-Object DeviceID, Temperature,ReadErrorsTotal
 
 write-host -nonewline "press a button to close "
 $response = read-host
