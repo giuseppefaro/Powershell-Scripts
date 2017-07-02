@@ -60,14 +60,20 @@ Foreach ($Card in $computerCPU)
 }
 $cpuout
 
-"HDD Capacity: "  + "{0:N2}" -f ($computerHDD.Size/1GB) + "GB"
+"C: Drive Capacity: "  + "{0:N2}" -f ($computerHDD.Size/1GB) + "GB"
 "HDD Space: " + "{0:P2}" -f ($computerHDD.FreeSpace/$computerHDD.Size) + " Free (" + "{0:N2}" -f ($computerHDD.FreeSpace/1GB) + "GB)"
-"RAM: " + "{0:N2}" -f ($computerSystem.TotalPhysicalMemory/1MB) + "MB"
+"Installed RAM: " + "{0:N2}" -f ($computerSystem.TotalPhysicalMemory/1MB) + "MB"
 "Operating System: " + $computerOS.caption + ", Service Pack: " + $computerOS.ServicePackMajorVersion
 "User logged In: " + $computerSystem.UserName
 "Last Reboot: " + $computerOS.LastBootUpTime
 
-
+$title = @"
+ 
+Video Card Info
+----------------
+"@
+ 
+Write-Host $title -foregroundColor Cyan
 
 $Output = New-Object -TypeName PSObject
 Foreach ($Card in $ComputerVideoCard)
@@ -95,16 +101,63 @@ function Get-Temperature {
     return $returntemp
     
 }
+$title = @"
+ 
+System Temperature
+------------------
+"@
+ 
+Write-Host $title -foregroundColor Cyan
 
 Get-Temperature 
 
 #
 # SMART Status for physical disks
 #
-echo ""
-echo "Hard Disk Status " 
+$title = @"
+ 
+Hard Disk Check
+---------------
+"@
+ 
+Write-Host $title -foregroundColor Cyan
+
 Get-PhysicalDIsk  | Select-Object FriendlyName,HealthStatus,Size
 Get-PhysicalDIsk | Get-StorageReliabilityCounter |  Select-Object DeviceID, Temperature,ReadErrorsTotal
+
+
+Function Test-MemoryUsage {
+[cmdletbinding()]
+Param()
+ 
+$os = Get-Ciminstance Win32_OperatingSystem
+$pctFree = [math]::Round(($os.FreePhysicalMemory/$os.TotalVisibleMemorySize)*100,2)
+ 
+if ($pctFree -ge 45) {
+$Status = "OK"
+}
+elseif ($pctFree -ge 15 ) {
+$Status = "Warning"
+}
+else {
+$Status = "Critical"
+}
+ 
+$os | Select @{Name = "Status";Expression = {$Status}},
+#@{Name = "PctFree"; Expression = {$pctFree}},
+@{Name = "FreeGB";Expression = {[math]::Round($_.FreePhysicalMemory/1mb,2)}},
+@{Name = "TotalGB";Expression = {[int]($_.TotalVisibleMemorySize/1mb)}}
+ 
+}
+$title = @"
+ 
+Memory Check
+------------
+"@
+ 
+Write-Host $title -foregroundColor Cyan
+
+Test-MemoryUsage
 
 write-host -nonewline "press a button to close "
 $response = read-host
