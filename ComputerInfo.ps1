@@ -20,3 +20,5 @@ Write-Host "System Information for: " $computerSystem.Name -BackgroundColor Dark
 "Operating System: " + $computerOS.caption + ", Service Pack: " + $computerOS.ServicePackMajorVersion
 "User logged In: " + $computerSystem.UserName
 "Last Reboot: " + $computerOS.LastBootUpTime
+
+
