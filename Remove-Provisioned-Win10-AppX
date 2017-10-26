@@ -1,0 +1,22 @@
+$appname = @(
+"*Xbox*"
+"*ZuneMusic*"
+"*ZuneVideo*"
+"*candycrushsaga*"
+"*officehub*"
+"*getstarted*"
+"*bingsports*"
+"*bingweather*"
+"*feedback*"
+"*connectivitystore*"
+
+)
+
+ForEach($app in $appname){
+Get-AppxProvisionedPackage -Online | where {$_.PackageName -like $app} | Remove-AppxProvisionedPackage -Online -ErrorAction SilentlyContinue
+
+}
+
+ForEach($app in $appname){
+Get-AppxPackage -Name $app | Remove-AppxPackage -ErrorAction SilentlyContinue
+}
