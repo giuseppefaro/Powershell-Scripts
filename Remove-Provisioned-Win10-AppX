@@ -13,7 +13,7 @@ $appname = @(
 )
 
 ForEach($app in $appname){
-Get-AppxProvisionedPackage -Online -AllUsers | where {$_.PackageName -like $app} | Remove-AppxProvisionedPackage -Online -ErrorAction SilentlyContinue
+Get-AppxProvisionedPackage -Online | where {$_.PackageName -like $app} | Remove-AppxProvisionedPackage -Online -ErrorAction SilentlyContinue
 
 }
 
