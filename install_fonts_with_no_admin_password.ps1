@@ -1,7 +1,6 @@
-# This script will install Fonts files copied in the folder C:\Fonts\
-# if you are in a Corporate enviorement copy this file in a share folder and 
-# configure a Task Manager to run this script every 5 minute with high privileges 
-# and using the user "system" to run the job
+# This script is copying the fonts file from the folder C:/Fonts to C:/Windows/Fonts and install Them
+# This script works and i tested on Win7 and Win10
+# This script requred High Privilege to run and also the Powershell Execution Policy Unrestricted "Get-ExecutionPolicy"
 # Author Giuseppe Faro
 # https://github.com/giuseppefaro
 # http://www.giuseppefaro.me
@@ -12,6 +11,15 @@ $objFolder = $objShell.Namespace($FONTS)
  
 $Fontdir = dir C:\Fonts\
 
+
+# Check if the folder exist, if not is creating the folder
+if(-not(Test-Path C:\Fonts\))
+{
+New-Item -ItemType directory -Path C:\Fonts\
+}
+
+# for each file in c:/Fonts install them
+
 foreach($File in $Fontdir) 
 {
   if ((Test-Path "C:\Windows\Fonts\$File") -eq $False)
@@ -20,5 +28,5 @@ foreach($File in $Fontdir)
     }
 }
 
-# After the installation all the fonts are deleted
+# remove all the content from the folder C:/Fonts
 Remove-Item C:\Fonts\*
