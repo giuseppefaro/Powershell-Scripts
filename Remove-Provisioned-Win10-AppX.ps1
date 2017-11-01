@@ -15,6 +15,8 @@ $appname = @(
 "*bingweather*"
 "*feedback*"
 "*connectivitystore*"
+"*marchofEmpires*"
+"*minecraft*"
 
 )
 
