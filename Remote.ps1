@@ -7,4 +7,3 @@ Enter-PSSession -ComputerName $computer -Credential $env:UserDomain\$env:UserNam
 
 # Wait for input before closing.
 # Read-Host -Prompt "Press Enter to exit"
-
