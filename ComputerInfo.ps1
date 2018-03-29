@@ -1,6 +1,7 @@
 # Local System Information 
 # Shows details of currently running PC
-
+# Author Giuseppe Faro
+# https://github.com/giuseppefaro
 
 # Get the ID and security principal of the current user account
 $myWindowsID=[System.Security.Principal.WindowsIdentity]::GetCurrent()
@@ -60,9 +61,9 @@ Foreach ($Card in $computerCPU)
 }
 $cpuout
 
-"C: Drive Capacity: "  + "{0:N2}" -f ($computerHDD.Size/1GB) + "GB"
-"HDD Space: " + "{0:P2}" -f ($computerHDD.FreeSpace/$computerHDD.Size) + " Free (" + "{0:N2}" -f ($computerHDD.FreeSpace/1GB) + "GB)"
-"Installed RAM: " + "{0:N2}" -f ($computerSystem.TotalPhysicalMemory/1MB) + "MB"
+"C: Drive Capacity: "  + "{0:N2}" -f ($computerHDD.Size/1GB) + " GB"
+"HDD Space: " + "{0:P2}" -f ($computerHDD.FreeSpace/$computerHDD.Size) + " Free (" + "{0:N2}" -f ($computerHDD.FreeSpace/1GB) + " GB)"
+"Installed RAM: " + "{0:N2}" -f ($computerSystem.TotalPhysicalMemory/1MB) + " MB"
 "Operating System: " + $computerOS.caption + ", Service Pack: " + $computerOS.ServicePackMajorVersion
 "User logged In: " + $computerSystem.UserName
 "Last Reboot: " + $computerOS.LastBootUpTime
@@ -83,7 +84,6 @@ Foreach ($Card in $ComputerVideoCard)
     $Output | Add-Member NoteProperty "$($Card.DeviceID)_Video Card RAM in MB" ($card.AdapterRAM/1MB)
     }
 $Output
-
 
 function Get-Temperature {
     $t = @( Get-WmiObject MSAcpi_ThermalZoneTemperature -Namespace "root/wmi" )
