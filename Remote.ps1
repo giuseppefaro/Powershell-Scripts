@@ -6,3 +6,4 @@ write-host""
 Enter-PSSession -ComputerName $computer -Credential $env:UserDomain\$env:UserName
 # Wait for input before closing
 # Read-Host -Prompt "Press Enter to exit"
+
