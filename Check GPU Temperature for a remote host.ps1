@@ -1,4 +1,6 @@
-﻿
+﻿# Author Giuseppe Faro
+# https://github.com/giuseppefaro
+
 # Common Variable
 $ComputerName= Read-host "Type the hostname of the machine you'd like check "
 Write-Output ""

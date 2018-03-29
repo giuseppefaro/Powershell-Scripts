@@ -1,5 +1,7 @@
 # Local System Information 
 # Shows details of currently running PC
+# Author Giuseppe Faro
+# https://github.com/giuseppefaro
 
 
 # Get the ID and security principal of the current user account

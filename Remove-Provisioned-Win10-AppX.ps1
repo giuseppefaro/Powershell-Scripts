@@ -2,7 +2,6 @@
 # this script will also help to remove them from theprovisioned appx list before run sysprep to create a new image
 # Author Giuseppe Faro
 # https://github.com/giuseppefaro
-# http://www.giuseppefaro.me
 
 $appname = @(
 "*Xbox*"
