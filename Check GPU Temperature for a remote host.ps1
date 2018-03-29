@@ -1,12 +1,13 @@
 ﻿
-$ComputerName= Read-host "Type the hostname of the machine you'd like check "
-# Common Variable
-$namespace = "root\CIMV2\NV"
-$classname = "ThermalProbe"
 
+# Common Variable
+$ComputerName= Read-host "Type the hostname of the machine you'd like check "
 function Get-Gpu-Temp{
     $video_card_name=(Get-WmiObject win32_videocontroller -ComputerName $ComputerName)|select-object -expand name
     write-host $video_card_name 
+
+    $namespace = "root\CIMV2\NV"
+    $classname = "ThermalProbe"
 
     #Write-Host "True"
     Get-WmiObject -ComputerName $ComputerName -Namespace root\CIMV2\NV gpu|select-object name,percent*
@@ -27,6 +28,16 @@ function Get-Gpu-Temp{
     #$temp
     }
 }
+
+function Get-Cpu-Temp{
+    $namespace = "root\wmi"
+    $classname = "MSAcpi_ThermalZoneTemperature"
+    $probes =Get-WmiObject -class $classname -computername $ComputerName -namespace $namespace
+}
+
+
 Get-Gpu-Temp
+
+
 # wait for input before closing.
 #Read-Host -Prompt “Press Enter to exit”
