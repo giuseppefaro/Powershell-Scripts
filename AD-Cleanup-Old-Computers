@@ -9,7 +9,7 @@ $then = (Get-Date).AddDays(-365) # The 365 is the number of days from today sinc
 #Get-ADComputer -Property Name,lastLogonDate -Filter {lastLogonDate -lt $then} | FT Name
 
 # If you would like to Disable these computer accounts, uncomment the following line:
-#Get-ADComputer -Property Name,lastLogonDate -Filter {lastLogonDate -lt $then} | Set-ADComputer -Enabled false
+#Get-ADComputer -Property Name,lastLogonDate -Filter {lastLogonDate -lt $then} | Set-ADComputer -Enabled $false
 
 # If you would like to Remove these computer accounts, uncomment the following line:
 # Get-ADComputer -Property Name,lastLogonDate -Filter {lastLogonDate -lt $then} | Remove-ADComputer
