@@ -6,13 +6,17 @@
 import-module activedirectory
 $then = (Get-Date).AddDays(-365) # The 365 is the number of days from today since the last logon.
 
-#Get-ADComputer -Property Name,lastLogonDate -Filter {lastLogonDate -lt $then} | FT Name
-
 # This line will show all computer that are older than 365 days that are still enabled
+echo "Here the list of computers that match with the Date and are still ENABLED"
 Get-ADComputer -Property lastLogonDate,Enabled  -Filter {(lastLogonDate -lt $then) -and (Enabled -eq "true")} | FT Name,lastLogonDate,Enabled
+echo ""
+echo "Here the list of Disabled computers that match with the Date"
+Get-ADComputer -Property lastLogonDate,Enabled  -Filter {(lastLogonDate -lt $then) -and (Enabled -eq "False")} | FT Name,lastLogonDate,Enabled
+
 
 # If you would like to Disable these computer accounts, uncomment the following line:
 #Get-ADComputer -Property Name,lastLogonDate -Filter {lastLogonDate -lt $then} | Set-ADComputer -Enabled $false
+
 
 # If you would like to Remove these computer accounts, uncomment the following line:
 # Get-ADComputer -Property Name,lastLogonDate -Filter {lastLogonDate -lt $then} | Remove-ADComputer
