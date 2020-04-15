@@ -8,6 +8,9 @@ $then = (Get-Date).AddDays(-365) # The 365 is the number of days from today sinc
 
 #Get-ADComputer -Property Name,lastLogonDate -Filter {lastLogonDate -lt $then} | FT Name
 
+# This line will show all computer that are older than 365 days that are still enabled
+Get-ADComputer -Property lastLogonDate,Enabled  -Filter {(lastLogonDate -lt $then) -and (Enabled -eq "true")} | FT Name,lastLogonDate,Enabled
+
 # If you would like to Disable these computer accounts, uncomment the following line:
 #Get-ADComputer -Property Name,lastLogonDate -Filter {lastLogonDate -lt $then} | Set-ADComputer -Enabled $false
 
